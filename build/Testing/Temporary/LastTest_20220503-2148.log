@@ -1,0 +1,19 @@
+Start testing: May 03 23:48 Mitteleuropäische Sommerzeit
+----------------------------------------------------------
+Unable to find executable: env
+1/1 Testing: tests
+1/1 Test: tests
+Command: "" "CTEST_OUTPUT_ON_FAILURE=1" "./tests"
+Directory: C:/Users/bruec/cppp/02_memory/02_memory/build
+"tests" start time: 
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"tests" end time: May 03 23:48 Mitteleuropäische Sommerzeit
+"tests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: May 03 23:48 Mitteleuropäische Sommerzeit
