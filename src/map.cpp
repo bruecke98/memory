@@ -81,14 +81,23 @@ void cppp::Map::insert(const std::string& key, const std::vector<Item>& order) {
 }
 
 std::vector<cppp::Item> cppp::Map::get(const std::string& key) {
-    std::size_t hash = calcHash(key);
-    //arr[hash].erase
-    //if (arr[hash].empty() || arr[hash].at()
+    
+    
+
     return {}; // TODO
 }
 
 void cppp::Map::remove(const std::string& key) {
     // TODO
+    std::size_t hash = calcHash(key);
+    MapElement emptyMapEl;
+    //arr[hash].erase
+    for (auto i : arr[hash])
+    {
+        if (i.key == key){
+            arr[hash] = {emptyMapEl};
+        }
+    }
 }
 
 std::size_t cppp::Map::calcHash(const std::string& key) {
