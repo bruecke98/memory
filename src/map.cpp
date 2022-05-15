@@ -7,7 +7,21 @@
 
 cppp::Map::Map(const std::size_t size) : size(size) {
     // TODO
-    arr = (MapBucket*) new MapBucket(size);
+    arr = (MapBucket*) new MapBucket[size];
+    //MapElement mE = new MapElement();
+    //MapBucket mB = new MapBucket(0);
+
+    /**for (size_t i = 0; i < size; i++)
+    {
+        //arr[i].at(0) = mE;
+        arr[i].push_back(mE);
+        std::cout <<  i << std::endl;
+        
+    } **/
+    
+    
+    
+    
     /**
     MapBucket mB(size);
     MapElement mapE;
@@ -34,18 +48,20 @@ cppp::Map::Map(const std::size_t size) : size(size) {
 
 cppp::Map::~Map() {
     // TODO
-    delete arr;
-    //arr = nullptr;
+    delete[] arr;
+    arr = nullptr;
 }
 
 void cppp::Map::insert(const std::string& key, const std::vector<Item>& order) {
     // TODO
     //calculate hash
      std::size_t hash = calcHash(key);
+     bool vorhanden = false;
     // mapBu[] = &arr;
-    //arr[hash] = MapBucket(size);
+    //arr[hash] = MapBucket();
 
     std::cout << "Hash: "<< hash << std::endl;
+    //arr[hash] = MapBucket();
 
 
     std::cout  << arr[hash].size() << std::endl;
@@ -62,15 +78,36 @@ void cppp::Map::insert(const std::string& key, const std::vector<Item>& order) {
 
 
         // if line is included cout doesnt show anything
-        arr[hash] = MapBucket(size);
+        //arr[hash] = MapBucket({mapEl});
         arr[hash].push_back(mapEl);
  
         std::cout << "first" << std::endl;
 
     }else{
         //if (arr[hash].at())
-        arr[hash] = MapBucket(size);
-        arr[hash].push_back(mapEl);
+        //arr[hash] = MapBucket(size);
+        /**for (auto arrMap : arr[hash])
+        {   
+            if (arrMap.key == key){
+                arr[hash].
+            }
+        }**/
+
+        for (size_t i = 0; i < arr[hash].size() ; i++)
+        {
+            /* code */
+
+            if(arr[hash].at(i).key == key){
+                arr[hash].at(i) = {mapEl};
+                vorhanden = true;
+            }
+        }
+        if (vorhanden == false){
+            arr[hash].push_back(mapEl);
+        }
+        
+        
+        //arr[hash].push_back(mapEl);
 
         std::cout << "second" << std::endl;
     }   
