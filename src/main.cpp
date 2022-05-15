@@ -16,7 +16,7 @@ int main(int argc, char** argv) {
 
 
     map.insert("a", a);
-   // map.insert("a", a);
+   map.insert("a", a);
     map.insert("b", b);
     
 

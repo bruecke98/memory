@@ -7,7 +7,7 @@
 
 cppp::Map::Map(const std::size_t size) : size(size) {
     // TODO
-    arr = (MapBucket*)  new MapBucket(size);
+    arr = (MapBucket*) new MapBucket(size);
     /**
     MapBucket mB(size);
     MapElement mapE;
@@ -35,7 +35,7 @@ cppp::Map::Map(const std::size_t size) : size(size) {
 cppp::Map::~Map() {
     // TODO
     delete arr;
-    arr = nullptr;
+    //arr = nullptr;
 }
 
 void cppp::Map::insert(const std::string& key, const std::vector<Item>& order) {
@@ -48,25 +48,30 @@ void cppp::Map::insert(const std::string& key, const std::vector<Item>& order) {
     std::cout << "Hash: "<< hash << std::endl;
 
 
-    std::cout  << arr[hash].empty() << std::endl;
+    std::cout  << arr[hash].size() << std::endl;
 
 
-    //check if *arr at position hash is empty
-    if (arr[hash].empty()){
-        //create a MapElemnt 
-
+    
         MapElement mapEl;
         mapEl.key = key;
         mapEl.value = order;
 
+    //check if *arr at position hash is empty
+    if (arr[hash].size() == 0){
+        //create a MapElemnt 
+
+
         // if line is included cout doesnt show anything
         arr[hash] = MapBucket(size);
-        //arr[hash].push_back(mapEl);
+        arr[hash].push_back(mapEl);
  
         std::cout << "first" << std::endl;
 
     }else{
-       
+        //if (arr[hash].at())
+        arr[hash] = MapBucket(size);
+        arr[hash].push_back(mapEl);
+
         std::cout << "second" << std::endl;
     }   
 
@@ -77,9 +82,9 @@ void cppp::Map::insert(const std::string& key, const std::vector<Item>& order) {
 
 std::vector<cppp::Item> cppp::Map::get(const std::string& key) {
     std::size_t hash = calcHash(key);
-
-    return arr->at(hash).value;
-    //return {}; // TODO
+    //arr[hash].erase
+    //if (arr[hash].empty() || arr[hash].at()
+    return {}; // TODO
 }
 
 void cppp::Map::remove(const std::string& key) {
