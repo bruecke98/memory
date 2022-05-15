@@ -82,7 +82,16 @@ void cppp::Map::insert(const std::string& key, const std::vector<Item>& order) {
 
 std::vector<cppp::Item> cppp::Map::get(const std::string& key) {
     
-    
+      std::size_t hash = calcHash(key);
+    MapElement emptyMapEl;
+    //arr[hash].erase
+    for (auto iteratorArr : arr[hash])
+    {
+        if (iteratorArr.key == key){
+            return iteratorArr.value;
+        }
+    }
+    throw std::invalid_argument("Fehler");
 
     return {}; // TODO
 }
