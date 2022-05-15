@@ -59,6 +59,7 @@ void cppp::Map::insert(const std::string& key, const std::vector<Item>& order) {
         mapEl.key = key;
         mapEl.value = order;
 
+        // if line is included cout doesnt show anything
         arr[hash] = MapBucket(size);
         //arr[hash].push_back(mapEl);
  
