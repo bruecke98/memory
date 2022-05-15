@@ -29,9 +29,11 @@ void speichern(const std::string& dateiname, const std::vector<Food>& speisen) {
 }
 
 void laden(const std::string& dateiname, std::vector<Food>& speisen) {
+
+    std::cout << "Loaded " << speisen.size() << std::endl;
     // TODO,
     try{
-    std::ifstream inFile("../foo.csv");
+    std::ifstream inFile("../food.csv");
     std::string csvLine;
     
         //alle linien der csv 
