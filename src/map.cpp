@@ -84,14 +84,7 @@ void cppp::Map::insert(const std::string& key, const std::vector<Item>& order) {
         std::cout << "first" << std::endl;
 
     }else{
-        //if (arr[hash].at())
-        //arr[hash] = MapBucket(size);
-        /**for (auto arrMap : arr[hash])
-        {   
-            if (arrMap.key == key){
-                arr[hash].
-            }
-        }**/
+        
 
         for (size_t i = 0; i < arr[hash].size() ; i++)
         {

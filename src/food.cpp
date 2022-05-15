@@ -5,7 +5,9 @@
 #include <stdexcept>
 #include <iostream>
 
-Food::Food(int bestellnummer, std::string bezeichnung, float preis) : bestellnr(bestellnummer), bezeichnung(bezeichnung), preis(preis) {}
+
+Food::Food(int bestellnummer, std::string bezeichnung, float preis) :
+        bestellnr(bestellnummer), bezeichnung(bezeichnung), preis(preis) {}
 
 std::string Food::getBezeichnung() const {
     return bezeichnung;
@@ -19,57 +21,64 @@ int Food::getBestellnummer() const {
     return bestellnr;
 }
 
-void speichern(const std::string& dateiname, const std::vector<Food>& speisen) {
-    std::ofstream file;
-    file.open ("../food.csv", std::ios::app);
-    for (Food f: speisen){
-        file << (std::to_string(f.getBestellnummer()) + ';' + f.getBezeichnung() + ';' +  std::to_string(f.getPreis()) + '\n');
+void speichern(const std::string &dateiname, const std::vector<Food> &speisen) {
+    // TODO 2.1.a
+
+    std::ofstream myFile;
+    myFile.open("." + dateiname, std::ios::out); // write mode
+
+    // Throw an exception in case the file could not be open
+//    if (!myFile) {
+//        throw std::runtime_error("Error for writing! File could not be opened : File not found");
+//    }
+
+    if (myFile.is_open()) {
+        for (const auto &food : speisen) {
+            myFile << food.getBestellnummer() << ";" << food.getBezeichnung() << ";" << food.getPreis() << std::endl;
+        }
+        myFile.close();
+    } else {
+        std::cout << "The File is not opened!" << std::endl;
     }
-    file.close();
 }
 
-void laden(const std::string& dateiname, std::vector<Food>& speisen) {
+void laden(const std::string &dateiname, std::vector<Food> &speisen) {
 
-    std::cout << "Loaded " << speisen.size() << std::endl;
-    // TODO,
-    try{
-    std::ifstream inFile("../food.csv");
-    std::string csvLine;
-    
-        //alle linien der csv 
-        while (getline(inFile, csvLine)) {
-                std::istringstream csvStream(csvLine);
-                std::string csvElement;
-                // read every element from the line that is seperated by commas
-                // and put it into the vector or strings
+    // TODO 2.1.b Bemerkung die Methode hat auf IOS sowie auch auf auf Linux funktionrt.
+    //  Auf windows hatten wir das Problem mit tmpnam(nullptr) da der erzeugt path der Datein mit "\" als praefix erstellt wurde.
 
-                //variablen für das Food Objekt
-                int bestell_nr;
-                std::string bezeichnung;
-                float preis;
+    std::ifstream myFile;
+    myFile.open("." + dateiname, std::ios::in); // read mode
 
-                int i = 0 ;
-                //alle einträge pro Linie
-                while( getline(csvStream, csvElement, ';') )
-                {
-                    if (i==0) 
-                        bestell_nr = std::stoi(csvElement);
-                        
-                    if (i==1) 
-                        bezeichnung = csvElement;
-                        
-                    if (i==2) 
-                        preis = std::stod(csvElement);
-                        
-                    i++;
-                }
-                Food load_food(bestell_nr, bezeichnung, preis);
-                speisen = {load_food};
+    //    if (!myFile) {
+//        throw std::runtime_error("Error for reading! File could not be opened : File not found");
+//    }
+
+    std::string line;
+
+    while (std::getline(myFile, line)) {
+
+        std::stringstream stream(line);
+        std::vector<std::string> elements; // vector of strings
+
+        std::string element;
+
+        while (std::getline(stream, element, ';')) {
+            elements.push_back(element); // elements : vector[0] = first food
         }
-    }catch (const std::runtime_error& error){
-        std::cout << "Fehler beim lesen der CSV-Datei" << std::endl;
+
+        if (elements.size() != 3) {
+            throw std::runtime_error(
+                    "The file is corrupted. Elements' data could not be converted to food class attributes.");
+        }
+
+        try {
+            speisen.push_back(Food(std::stoi(elements[0]), elements[1], std::stof(elements[2])));
+            // Construct and insert element at the end of the vector
+        } catch (const std::invalid_argument &myEx) {
+            throw std::runtime_error(std::string("Error! pushing an element to the vector has failed") + myEx.what());
+        }
     }
 
-    
-    
+    myFile.close();
 }
